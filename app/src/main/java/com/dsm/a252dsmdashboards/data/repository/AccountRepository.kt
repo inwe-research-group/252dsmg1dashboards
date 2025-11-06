@@ -15,33 +15,10 @@ class AccountRepository(private val firestore: FirebaseFirestore){
             val snapshot=firestore.collection(USER_COLLECTION).get().await()
             val users=snapshot.documents.mapNotNull { doc->
                 val uid=doc.getString("uid")?: doc.id
-                val email=doc.getString("correo")
-                val nombre=doc.getString("nombre")?: ""
-                val apellidoPaterno=doc.getString("apellidopaterno")?: ""
-                val apellidoMaterno=doc.getString("apellidomaterno")?: ""
-                val displayName="$nombre $apellidoPaterno".trim()
-                val photoUrl=doc.getString("photoUrl")?: ""
-                val fechaNacimiento=doc.getTimestamp("fechanacimiento")
                 val tipoDocumento=doc.getString("tipo_documento")
-                val numeroDocumento=doc.getString("numero_documento")
-                val genero=doc.getString("genero")
-                val telefono=doc.getString("telefono")
-                val estado=doc.getString("estado")
-                val legacyTipoUusuarioId=doc.getLong("legacyTipoUusuarioId")?.toInt()
                 UserProfileData(
                     uid=uid,
-                    email=email,
-                    displayName=displayName,
-                    photoUrl=photoUrl,
-                    nombre=nombre,
-                    apellidoPaterno=apellidoPaterno,
-                    apellidoMaterno=apellidoMaterno,
-                    fechaNacimiento=fechaNacimiento,
-                    tipoDocumento=tipoDocumento,
-                    genero=genero,
-                    telefono=telefono,
-                    estado=estado,
-                    legacyTipoUsuarioId = legacyTipoUusuarioId
+                    tipoDocumento=tipoDocumento
                 )
             }
             Result.success(users)
