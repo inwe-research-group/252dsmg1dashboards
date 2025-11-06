@@ -18,4 +18,5 @@ fun DashboardScreen(){
     val datos: List<NpersonasXTipoDocumento> = uiState.datosDashboard
     //llamar a los screen con diseño estadistico
     BarrasScreen(datos)
+    PieScreen(datos)
 }
